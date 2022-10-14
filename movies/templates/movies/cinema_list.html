@@ -1,0 +1,68 @@
+{% extends 'movies/base.html' %}
+
+{% block content %}
+
+
+  <h1>Cinema List Events</h1>
+  </br>
+  {% for cinema in cinemas %}
+  <div class="card">
+    <div class="card-header">
+      {{cinema}}
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Film Name: {{cinema.movie_title}}</h5>
+      <p class="card-text">
+        <strong> Date: </strong> {{cinema.event_date}} </br>
+        <strong> Venue: </strong>{{cinema.venue.address}} </br>
+        <strong> Film Director: </strong>{{cinema.director}}</br>
+        <strong> Description: </strong> {{cinema.description}} </br>
+        <strong> Attendees: </strong> </br>
+          {% for user in cinema.attendees.all %}
+          {{user}}</br>
+          {% endfor %}  
+        <strong> Person in Charge: </strong> {{cinema.manager}} </br>   
+      </p>
+    </div>
+   
+    <div class="card-footer text-muted">
+      <a href="{% url 'update-cinema' cinema.id%}" class="btn btn-outline-secondary btn-sm my-2 my-sm-0" type="submit">Update</a>
+      <a href="{% url 'delete-cinema' cinema.id%}" class="btn btn-outline-danger btn-sm my-2 my-sm-0" type="submit">Delete</a>
+    </div>
+  </div>
+  <br/> <br/>
+  {% endfor %}
+  
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    
+ 
+
+{% if cinemas.has_previous %}
+	<li class="page-item"><a class="page-link" href="?page=1"> First</a></li>
+
+	<li class="page-item"><a class="page-link" href="?page={{ cinemas.previous_page_number }}">Previous</a></li>
+	
+{% endif %}
+
+<!--
+<li class="page-item disabled"><a href="#" class="page-link">Page {{ cinemas.number }} of {{ cinemas.paginator.num_pages }}</a></li>
+-->
+
+{% for i in nums %}
+	<li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+
+{% endfor %}
+
+
+{% if cinemas.has_next %}
+	<li class="page-item"><a class="page-link" href="?page={{ cinemas.next_page_number }}">Next</a></li>
+
+	<li class="page-item"><a class="page-link" href="?page={{ cinemas.paginator.num_pages }}">Last &raquo</a></li>
+
+{% endif %}
+
+
+</ul>
+</nav>
+{% endblock %}

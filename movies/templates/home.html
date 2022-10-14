@@ -1,0 +1,21 @@
+<center>
+
+<h1>Hello {{name}}! Movies For {{month}} {{year}}  </h1>
+
+As of {{time}}
+<br/><br/>
+{{cal|safe}}
+<br/><br/><br/><br/>
+<h3>Events This Month...</h3>
+{% if event_list%}
+    {%for event in event_list %}
+    {{event}} - {{event.event_date}}
+    {% endfor %}
+{% else %}
+  Sorry...There is no events this month
+{% endif %}
+
+Copyright (c) {{current_year}}
+</center>
+
+</center>

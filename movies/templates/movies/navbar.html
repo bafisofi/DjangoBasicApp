@@ -1,0 +1,90 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+  <a class="navbar-brand" href="{% url 'home' %}">Peli Club</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  
+ 
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="navbar-brand" href="#">
+          <img src="{% static 'images/logo.png' %}" width="100" height="50" class="d-inline-block align-top" alt="Logo">
+        </a>
+      </li>
+      {% if user.is_authenticated %}
+      <li class="nav-item dropdown pt-2">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Venues
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'add-venue' %}">Add a Venue</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{% url 'list-venues' %}">List of Venues</a>
+        </div>
+      </li>
+      
+      <li class="nav-item dropdown pt-2">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Cinema Events
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'add-cinema' %}">Add a Cinema Events</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{% url 'list-cinema' %}">List of Cinema Events</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{% url 'cinema-pdf' %}">PDF Report of Cinema Events</a>
+        </div>
+      </li> 
+      <li class="nav-item dropdown pt-2">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Movies
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'add-movie' %}">Add a Movie</a>
+          <a class="dropdown-item" href="{% url 'list-movies' %}">List of Movies</a>
+        </div>
+      </li>
+      
+      <li class="nav-item dropdown pt-2">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Director
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'add-director' %}">Add a Director</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{% url 'list-directors' %}">List of Directors</a>
+        </div>
+      </li>
+      {%endif %} 
+        {% if user.is_authenticated %}
+        <li class="nav-item pt-2">
+          <a class="nav-link  " href="{% url 'logout' %}"  aria-current="page">
+            Logout
+          </a>
+        </li>  
+        {%else%}
+        <li class="nav-item dropdown pt-2">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            User
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'register-user' %}">Register</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'login' %}">Login</a>
+          </div>
+        </li> 
+        {% endif %}
+      
+    </ul>
+    {% if user.is_authenticated %}
+    <form class="form-inline my-2 my-lg-0" method="POST" action="{% url 'search-venues'%}">
+      {%csrf_token%}
+      <input class="form-control mr-sm-2" type="search" placeholder="Search Venues" aria-label="Search" name="searched">
+      <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    {% endif %}
+  </div>
+  
+</nav>

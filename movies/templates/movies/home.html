@@ -1,0 +1,41 @@
+{% extends 'movies/base.html' %}
+
+{% block content %}
+
+  <center>
+  <!-- <br/>
+  <h1> Movies For {{month}} {{year}}  </h1>
+ 
+  As of {{time}}
+  <br/><br/>
+  <table class="table table-striped">
+  {{cal|safe}}
+  </table>-->
+  <br/> 
+<h1>Events This Month...</h1>
+<br/>
+{% if event_list%}
+    {%for event in event_list %}
+    <div class="card">
+        <h5 class="card-header">{{event}}</h5>
+      <div class="card-body">
+        <h5 class="card-title">Film Name: {{event.movie_title}}</h5>
+        <p class="card-text">
+          <strong> Date: </strong> {{event.event_date}} </br>
+          <strong> Venue: </strong>{{event.venue.address}} </br> 
+        </p>
+      </div>
+  
+    </div>
+    {% endfor %}
+{% else %}
+  Sorry...There is no events this month
+{% endif %}
+  </center>
+  {% endblock %}
+  
+ 
+  
+ 
+
+  

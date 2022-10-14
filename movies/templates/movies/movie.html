@@ -1,0 +1,78 @@
+{% extends 'movies/base.html' %}
+
+{% block content %}
+ <br>
+  <center>
+  <h1>Movies...</h1>         
+  <table class="table table-hover border-bottom">
+  {%for movie in movies%}
+    <tr>
+      <td>
+        <a href="{% url 'show-movie' movie.id%}">{{movie}}</a> 
+     </td> 
+     <td align="right">
+      <a href="{% url 'update-movie' movie.id%}" class="btn btn-outline-secondary btn-sm my-2 my-sm-0" type="submit">Update</a>
+      
+      <a class="btn btn-sm btn-outline-danger"  href="#" data-toggle="modal" data-target="#exampleModal-{{ movie.id }}" data-id="{{ movie.id }}">Delete</a>
+   
+    </td> 
+
+    <br/>
+    <div class="modal fade" id="exampleModal-{{ movie.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+     <div class="modal-dialog" role="document">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h5 class="modal-title" id="exampleModalLabel">Confirmation Message</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+           </button>
+         </div>
+         <div class="modal-body">
+           Are you sure, You want to remove this movie?
+         </div>
+         <div class="modal-footer">
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+           <a class="btn btn-sm btn-danger" href="{% url 'delete-movie' movie.id%}" >Delete</a>
+         </div>
+       </div>
+     </div>
+   </div>
+  {% endfor %}
+</tr>
+  </table> 
+  </center>
+<br/>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    
+ 
+
+{% if movies.has_previous %}
+	<li class="page-item"><a class="page-link" href="?page=1"> First</a></li>
+
+	<li class="page-item"><a class="page-link" href="?page={{ movies.previous_page_number }}">Previous</a></li>
+	
+{% endif %}
+
+<!--
+<li class="page-item disabled"><a href="#" class="page-link">Page {{ movies.number }} of {{ movies.paginator.num_pages }}</a></li>
+-->
+
+{% for i in nums %}
+	<li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+
+{% endfor %}
+
+
+{% if movies.has_next %}
+	<li class="page-item"><a class="page-link" href="?page={{ movies.next_page_number }}">Next</a></li>
+
+	<li class="page-item"><a class="page-link" href="?page={{ movies.paginator.num_pages }}">Last &raquo</a></li>
+
+{% endif %}
+
+{% endblock %}
+</ul>
+</nav>
+  

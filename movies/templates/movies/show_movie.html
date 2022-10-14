@@ -1,0 +1,26 @@
+{% extends 'movies/base.html' %}
+
+{% block content %}
+  <div class="card">
+    <div class="card-header">
+      {{movie.title_movie}}
+    </div>
+    <div class="card-body">
+      <p class="card-text">
+        <strong> Director: </strong> {{movie.director}} </br>
+        <strong> Genre: </strong> 
+          {% for genre in movie.genre.all %}
+          {{genre}}
+          {% if not forloop.last %}, {% endif %}
+          {% endfor %}  </br>
+        <strong> Summary: </strong>{{movie.summary}} </br>
+        <strong> Release Date: </strong> {{movie.release_date }}  </br> 
+        {% if movie.movie_image%}
+         </br> 
+        <img  width="300" height="300" class="img-fluid img-thumbnai" src="{{movie.movie_image.url}}">
+          
+        {% endif %}
+    </div>
+   
+  </div>
+  {% endblock %}
