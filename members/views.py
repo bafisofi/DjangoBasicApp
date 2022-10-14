@@ -21,7 +21,7 @@ def login_user(request):
         return redirect('login')
 
   else:
-    return render(request,'authenticate/login.html',{})
+    return render(request,'authentication/login.html',{})
 
 
 def logout_user(request):
@@ -44,6 +44,6 @@ def register_user(request):
 	else:
 		form =  RegisterUserForm()
 
-	return render(request, 'authenticate/register_user.html', {
+	return render(request, 'authentication/register_user.html', {
 		'form':form,
 		})
